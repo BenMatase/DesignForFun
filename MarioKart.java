@@ -118,11 +118,11 @@ class CustomListener extends Listener {
 					robot.keyRelease(KeyEvent.VK_D);
 				}
 			} else {
-				if (handSpeed.getY() > 1000) {
+				if (handSpeed.getY() > 600) {
 					System.out.println('y');
 					System.out.println(handSpeed.getY());
 				}
-				if ((handSpeed.getZ() < -700)) {
+				if ((handSpeed.getZ() < -500)) {
 					robot.keyPress(KeyEvent.VK_SPACE);
 					try {
 						Thread.sleep(50);
