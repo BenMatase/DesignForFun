@@ -70,7 +70,7 @@ class CustomListener extends Listener {
 					robot.keyRelease(KeyEvent.VK_K);
 
 				}
-				if (roll > 25) {
+				if (roll < 135 && roll > 25) {
 					previous_hand_is_left = 1;					
 					System.out.println('1');
 					// if (previous_hand_is_left == 1 && counter > 0) {
@@ -85,7 +85,7 @@ class CustomListener extends Listener {
 					// 	}
 					// 	robot.keyRelease(KeyEvent.VK_A);
 					// }
-
+                    // int sleep = (int) (50-(roll-25)/2.2)
 					robot.keyPress(KeyEvent.VK_A);
 					try {
 						Thread.sleep(50);
@@ -94,7 +94,7 @@ class CustomListener extends Listener {
 					}
 					robot.keyRelease(KeyEvent.VK_A);
 
-				} else if (roll < -25) {
+				} else if (roll > -135 && roll < -25) {
 					previous_hand_is_left = 0;					
 					System.out.println('2');
 					// if (previous_hand_is_left == 0 && counter > 0) {
@@ -109,6 +109,7 @@ class CustomListener extends Listener {
 					// 	}
 					// 	robot.keyRelease(KeyEvent.VK_D);
 					// }
+                    // int sleep = (int) (50-(Math.abs(roll)-25)/2.2)
 					robot.keyPress(KeyEvent.VK_D);
 					try {
 						Thread.sleep(50);
