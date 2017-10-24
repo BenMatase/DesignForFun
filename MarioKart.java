@@ -11,7 +11,12 @@ class CustomListener extends Listener {
 	public Robot robot;
 	public int counter = 0;
 	public int previous_hand_is_left = 0;
-	// 0 is not left hand, 1 is left hand
+
+	private static int UPPER_WAIT = 50;
+	private static int UPPER_DEG = 135;
+	private static int LOWER_DEG = 25;
+	private static double STARTING_MULT = 2.0;	
+// 0 is not left hand, 1 is left hand
 
 	// Executes once your program and detector are connected, are there any specific gestures you're going
 	// to look for later on? Uncomment the ones you want to enable below
@@ -59,7 +64,7 @@ class CustomListener extends Listener {
 			double yaw = Math.toDegrees(direction.yaw());
 			Vector handSpeed = hand.palmVelocity();
 			if (hand.isLeft()) {
-				System.out.println(hand_angle);				
+				//System.out.println(hand_angle);				
 				if (hand_angle > 55){
 					robot.keyPress(KeyEvent.VK_K);
 					try {
@@ -72,7 +77,7 @@ class CustomListener extends Listener {
 				}
 				if (roll < 135 && roll > 25) {
 					previous_hand_is_left = 1;					
-					System.out.println('1');
+					//System.out.println('1');
 					// if (previous_hand_is_left == 1 && counter > 0) {
 					// 	counter--;
 					// } else {
@@ -85,10 +90,11 @@ class CustomListener extends Listener {
 					// 	}
 					// 	robot.keyRelease(KeyEvent.VK_A);
 					// }
-                    // int sleep = (int) (50-(roll-25)/2.2)
+                    			int sleep = (int) (UPPER_WAIT * (STARTING_MULT - (double)(roll - LOWER_DEG) / (UPPER_DEG - LOWER_DEG)));
+					System.out.println(sleep);
 					robot.keyPress(KeyEvent.VK_A);
 					try {
-						Thread.sleep(50);
+						Thread.sleep(sleep);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
@@ -96,7 +102,7 @@ class CustomListener extends Listener {
 
 				} else if (roll > -135 && roll < -25) {
 					previous_hand_is_left = 0;					
-					System.out.println('2');
+					//System.out.println('2');
 					// if (previous_hand_is_left == 0 && counter > 0) {
 					// 	counter--;
 					// } else {
@@ -109,10 +115,10 @@ class CustomListener extends Listener {
 					// 	}
 					// 	robot.keyRelease(KeyEvent.VK_D);
 					// }
-                    // int sleep = (int) (50-(Math.abs(roll)-25)/2.2)
+                    			int sleep = (int) (UPPER_WAIT * (STARTING_MULT - (double)(Math.abs(roll) - LOWER_DEG) / (UPPER_DEG - LOWER_DEG)));
 					robot.keyPress(KeyEvent.VK_D);
 					try {
-						Thread.sleep(50);
+						Thread.sleep(sleep);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
@@ -123,7 +129,7 @@ class CustomListener extends Listener {
 					System.out.println('y');
 					System.out.println(handSpeed.getY());
 				}
-				if ((handSpeed.getZ() < -500)) {
+				if ((handSpeed.getZ() < -300)) {
 					robot.keyPress(KeyEvent.VK_SPACE);
 					try {
 						Thread.sleep(50);
